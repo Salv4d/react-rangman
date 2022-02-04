@@ -26,6 +26,7 @@ class Hangman extends Component {
       lose: false,
     };
 
+    this.restart = this.restart.bind(this);
     this.handleGuess = this.handleGuess.bind(this);
   }
 
@@ -65,6 +66,15 @@ class Hangman extends Component {
     ));
   }
 
+  restart() {
+    this.setState(() => ({
+      nWrong: 0,
+      guessed: new Set(),
+      answer: randomWord(),
+      lose: false,
+    }));
+  }
+
   /** render: render game */
   render() {
     const { lose, nWrong, answer } = this.state;
@@ -84,6 +94,9 @@ class Hangman extends Component {
           <img src={dead} alt="You lose" />
           <h2>The correct word was: {answer}</h2>
         </div>
+        <button className="Hangman-restart-btn" onClick={this.restart}>
+          Restart Game
+        </button>
       </div>
     );
   }

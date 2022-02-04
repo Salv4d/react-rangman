@@ -41,7 +41,7 @@
   font-family: inherit;
   font-size: 1rem;
   cursor: pointer;
-  width: 30px;
+  min-width: 30px;
   margin: 5px 2px 2px 2px;
   letter-spacing: 1px;
   outline: none;
@@ -50,6 +50,10 @@
   box-shadow: 0 6px #ff9800;
   border-radius: 5px;
   padding-top: 4px;
+}
+
+.Hangman-restart-btn {
+  width: 150px;
 }
 
 .Hangman button:hover {
