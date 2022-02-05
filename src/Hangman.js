@@ -68,9 +68,9 @@ class Hangman extends Component {
   }
 
   handleGameOver() {
-    const { nWrong, answer, guessed } = this.state;
+    const { nWrong, answer } = this.state;
     const lose = nWrong < this.props.maxWrong ? false : true;
-    const win = answer.split("").every((curVal) => guessed.has(curVal));
+    const win = this.guessedWord().join("") === answer;
 
     return { win, lose, done: win || lose };
   }
