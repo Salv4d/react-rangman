@@ -8,6 +8,7 @@ import img4 from "./4.jpg";
 import img5 from "./5.jpg";
 import img6 from "./6.jpg";
 import dead from "./dead.gif";
+import winner from "./win.gif";
 import { randomWord } from "./words";
 
 class Hangman extends Component {
@@ -28,6 +29,7 @@ class Hangman extends Component {
 
     this.restart = this.restart.bind(this);
     this.handleGuess = this.handleGuess.bind(this);
+    this.handleGameOver = this.handleGameOver.bind(this);
   }
 
   /** guessedWord: show current-state of word:
@@ -65,6 +67,14 @@ class Hangman extends Component {
     ));
   }
 
+  handleGameOver() {
+    const { nWrong, answer, guessed } = this.state;
+    const lose = nWrong < this.props.maxWrong ? false : true;
+    const win = answer.split("").every((curVal) => guessed.has(curVal));
+
+    return { win, lose, done: win || lose };
+  }
+
   restart() {
     this.setState(() => ({
       nWrong: 0,
@@ -77,12 +87,12 @@ class Hangman extends Component {
   /** render: render game */
   render() {
     const { nWrong, answer } = this.state;
-    const lose = nWrong < this.props.maxWrong ? false : true;
-
+    const gameOver = this.handleGameOver();
+    console.log(gameOver);
     return (
       <div className="Hangman">
         <h1>Hangman</h1>
-        <div className={lose ? "Hangman-hidden" : ""}>
+        <div className={gameOver.done ? "Hangman-hidden" : ""}>
           <img
             src={this.props.images[nWrong]}
             alt={`${nWrong}/${this.props.maxWrong} guesses`}
@@ -91,9 +101,13 @@ class Hangman extends Component {
           <p className="Hangman-word">{this.guessedWord()}</p>
           <p className="Hangman-btns">{this.generateButtons()}</p>
         </div>
-        <div className={lose ? "" : "Hangman-hidden"}>
+        <div className={gameOver.lose ? "" : "Hangman-hidden"}>
           <img src={dead} alt="You lose" />
           <h2>The correct word was: {answer}</h2>
+        </div>
+        <div className={gameOver.win ? "" : "Hangman-hidden"}>
+          <img src={winner} alt="You win!!" />
+          <h2>You guessed right!! -&gt; {answer}</h2>
         </div>
         <button className="Hangman-restart-btn" onClick={this.restart}>
           Restart Game
