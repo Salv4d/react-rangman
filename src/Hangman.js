@@ -48,7 +48,6 @@ class Hangman extends Component {
     this.setState((st) => ({
       guessed: st.guessed.add(ltr),
       nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
-      lose: st.nWrong === 6 ? true : false,
     }));
   }
 
@@ -77,7 +76,9 @@ class Hangman extends Component {
 
   /** render: render game */
   render() {
-    const { lose, nWrong, answer } = this.state;
+    const { nWrong, answer } = this.state;
+    const lose = nWrong < this.props.maxWrong ? false : true;
+
     return (
       <div className="Hangman">
         <h1>Hangman</h1>
