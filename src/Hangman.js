@@ -80,7 +80,6 @@ class Hangman extends Component {
       nWrong: 0,
       guessed: new Set(),
       answer: randomWord(),
-      lose: false,
     }));
   }
 
