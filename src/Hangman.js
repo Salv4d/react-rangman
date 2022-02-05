@@ -85,7 +85,7 @@ class Hangman extends Component {
         <div className={lose ? "Hangman-hidden" : ""}>
           <img
             src={this.props.images[nWrong]}
-            alt={`${nWrong} wrong guesses`}
+            alt={`${nWrong}/${this.props.maxWrong} guesses`}
           />
           <h2>Wrong guesses: {nWrong}</h2>
           <p className="Hangman-word">{this.guessedWord()}</p>
